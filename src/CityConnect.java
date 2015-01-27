@@ -60,7 +60,7 @@ public class CityConnect {
 	private static final int SLOT_UNAVAILABLE = -1;
 	
 	// This is used to indicate the route was not found in the database
-	private static final int ROUTE_NOT_FOUND = -2;
+	private static final int NOT_FOUND = -2;
 
 	// These are the correct number of parameters for each command
 	private static final int PARAM_SIZE_FOR_ADD_ROUTE = 3;
@@ -200,7 +200,7 @@ public class CityConnect {
 
 		int position = getPositionOfExistingRoute(newStartLocation, newEndLocation);
 
-		if (position == ROUTE_NOT_FOUND) {
+		if (position == NOT_FOUND) {
 			return String.format(MESSAGE_NO_ROUTE, newStartLocation,
 					newEndLocation);
 		} 
@@ -224,13 +224,13 @@ public class CityConnect {
 			String existing_end_location = routes[i][STORAGE_POSITION_END_LOCATION];
 
 			if (existing_start_location == null) { //beginning of empty slots
-				return ROUTE_NOT_FOUND; 
+				return NOT_FOUND; 
 			} else if (isSameRoute(existing_start_location, existing_end_location,
 					newStartLocation, newEndLocation)) { 
 				return i;
 			}
 		}
-		return ROUTE_NOT_FOUND;
+		return NOT_FOUND;
 	}
 
 	/**
@@ -246,7 +246,7 @@ public class CityConnect {
 		
 		String[] parameters = splitParameters(removeFirstWord(userCommand));
 		
-		if (parameters.length < PARAM_SIZE_FOR_ADD_ROUTE){
+		if (parameters.length < PARAM_SIZE_FOR_ADD_ROUTE) {
 			return String.format(MESSAGE_INVALID_FORMAT, userCommand);
 		}
 
@@ -254,13 +254,13 @@ public class CityConnect {
 		String newEndLocation = parameters[PARAM_POSITION_END_LOCATION];
 		String distance = parameters[PARAM_POSITION_DISTANCE];
 
-		if (!isPositiveNonZeroInt(distance)){
+		if (!isPositiveNonZeroInt(distance)) {
 			return String.format(MESSAGE_INVALID_FORMAT, userCommand);
 		}
 
 		int slotPosition = location(newStartLocation, newEndLocation);
 
-		if (slotPosition == SLOT_UNAVAILABLE){
+		if (slotPosition == SLOT_UNAVAILABLE) {
 			return MESSAGE_NO_SPACE;
 		}
 
@@ -308,7 +308,7 @@ public class CityConnect {
 			String endLocation1, String startLocation2, String endLocation2) {
 
 		if ((startLocation1 == null) || (endLocation1 == null)
-				&& (startLocation2 == null) || (endLocation2 == null)){
+				&& (startLocation2 == null) || (endLocation2 == null)) {
 			throw new Error("Route end points cannot be null");
 		}
 
